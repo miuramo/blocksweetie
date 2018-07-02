@@ -1,6 +1,6 @@
 <?php
 
-$src = "<?php\n\n".$_POST['src'];
+$src = $_POST['src'];
 $fn = $_POST['fn'];
 
 $h = fopen("output/{$fn}", "w");

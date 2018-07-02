@@ -9,6 +9,8 @@
       <script src="blockly/msg/js/en.js"></script>
       <script src="blockly/sw1blocks.js"></script> <!-- load Sweetie Blocks -->
       <script src="blockly/sw1php.js"></script> <!-- load Sweetie Blocks -->
+      <script src="blockly/sw2blocks.js"></script> <!-- load Sweetie Blocks -->
+      <script src="blockly/sw2php.js"></script> <!-- load Sweetie Blocks -->
       <script
       src="https://code.jquery.com/jquery-1.12.4.min.js"
       integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
@@ -30,15 +32,34 @@
 <tr><td>
 Block Sweetie
 <?php
-    for($i=1;$i<=7;$i++){
-        echo "<button onclick=\"blkxmlload({$i})\">L{$i}</button> ";
+    function bswlist($dir){
+        if (!is_dir($dir)) return [];
+        $files = scandir($dir);
+        $out = "<select name=\"bswload_{$dir}\"')\">\n";
+        $out .= "<option value=\"\">Load from {$dir}</option>";
+        foreach($files as $n=>$f){
+            if ($f=="." || $f=="..") continue;
+            if (preg_match("/.bsw/", $f)){
+              $out .= "<option value=\"{$f}\">{$f}</option>\n";
+            }
+        }
+        $out .= "</select>\n";
+        return $out;
     }
+echo bswlist("samples");
+echo bswlist("output");
 //echo "<br>";
+/*for($i=1;$i<=7;$i++){
+    echo "<button onclick=\"blkxmlload({$i})\">L{$i}</button> ";
+}
 for($i=1;$i<=7;$i++){
     echo "<button onclick=\"blkxmlsave({$i})\">S{$i}</button> ";
-}
+    }*/
+echo "<button onclick=\"blkxmlsavefile()\">Save as output/xxx.bsw</button> ";
 ?>
       <button onclick="wsclear()">Clear</button>
+    &nbsp; 
+      <a target="_blank" href="output/phpliteadmin.php">phpliteadmin</a>
       </td><td>
       <button onclick="srcexport()">Export</button>
       <button onclick="srcrun()">Run</button>
@@ -46,17 +67,16 @@ for($i=1;$i<=7;$i++){
       <label for="editandrun" style="font-size:small;">Edit &amp; Run</label>
 </td></tr>
       <tr><td>
-      <div id="blocklyDiv" style="height: 700px; width: 740px;"></div>
+      <div id="blocklyDiv" style="height: 800px; width: 780px;"></div>
       </td><td>
-      <textarea id="src" style="font-size: 15px;font-family: verdana; background:#fff; height: 690px; width: 400px;">
+      <textarea id="src" style="font-size: 15px;font-family: verdana; background:#fff; height: 790px; width: 400px;">
       contents
       </text<?php echo "area>";?>
       </td></tr></table>
-<textarea id="blktxt" style="visible:false;">
-</text<?php echo "area>";?>
-<textarea id="blktxt">
-</text<?php echo "area>";?>
-
+<?php
+echo '<textarea id="blktxt" style="visible:false;">';
+echo '</text'.'area>';
+?>
 
       <xml id="toolbox" style="display: none">
       <category name="Logic">
@@ -164,6 +184,7 @@ for($i=1;$i<=7;$i++){
       <block type="sw_title">
       <field name="text">text</field>
       </block>
+      <block type="sw_echo"></block>
       </category>
       <category name="Sw Form" colour="#5ba593">
       <block type="sw_form_start"></block>
@@ -173,6 +194,16 @@ for($i=1;$i<=7;$i++){
       </block>
       <block type="sw_form_submit"></block>
       <block type="sw_form_end"></block>
+      </category>
+      <category name="PHP Assoc" colour="#5b5ba5">
+      <block type="php_assoc_pair"></block>
+      <block type="php_assoc_pair_string">
+      <field name="name">name</field>
+      </block>
+      <block type="php_assoc_addpair"></block>
+      <block type="lists_create_with"></block>
+      <block type="php_print_recursive"></block>
+      <block type="php_print_recursive_array"></block>
       </category>
 
 
@@ -282,16 +313,32 @@ for($i=1;$i<=7;$i++){
       <next>
       <block type="sw_divspan" id=")uDFjbL@(|igwqd+,8+3">
       <field name="divspan">div</field>
+
+      <value name="attribute">
+      <block type="php_assoc_pair" id="xx911">
+      <field name="keyname">style</field>
+      <field name="valname">background: #efc; padding: 10px;</field>
+      </block></value>
+
       <statement name="content">
       <block type="sw_form_start" id="Z[,Nt,c%aqDlSC`dSQ:k">
       <next>
       <block type="sw_form_input" id="cs4|}K4u8j+r0K9t$PRe">
       <field name="name">name</field>
       <field name="type">text</field>
+      <value name="attr">
+      <block type="php_assoc_pair" id="xx912">
+      <field name="keyname">placeholder</field>
+      <field name="valname">input text</field>
+      </block></value>
       <next>
       <block type="sw_form_input" id="%S@c}bdp@YV7f%}%9KPg">
       <field name="name">price</field>
-      <field name="type">text</field>
+      <value name="attr">
+      <block type="php_assoc_pair" id="xx912">
+      <field name="keyname">placeholder</field>
+      <field name="valname">input price</field>
+      </block></value>
       <next>
       <block type="sw_form_submit" id="/-L-LMKVsNdBH1HWAU:%">
       <next>
@@ -348,7 +395,8 @@ function showCode() {
     // Generate PHP code and display it.
     //       Blockly.Javascript.INFINITE_LOOP_TRAP = null;
     var code = Blockly.PHP.workspaceToCode(workspace);
-    code = code.replace(/\$db;/,"");
+    //    code = code.replace(/\$db;/,"");
+    code = code.replace(/\$[\w]+;/g,""); // remove variable definitions on top
     code = code.trim();
     $("#src").text(code);
 }
@@ -398,6 +446,44 @@ function blkxmlload(num){
     $("#blktxt").val(txt);
     blkimport();
 }
+function blkxmlloadfile(fn = null, dir = null){
+    if (fn == null){
+        fn = prompt("input file name (.bsw)");
+        if (fn=="" || fn == null) return;
+    } else {
+        if (fn=="") return;
+        if (!confirm("really load from file "+fn+" ? (Save blocks before load!!)")) return;
+    }
+    if (dir ==null) dir = "output";
+    $.get(dir+"/"+fn).done(function(txt){
+      $("#blktxt").val(txt);
+      blkimport();
+    });
+}
+function blkxmlsavefile(fn = null){
+    if (fn == null){
+        fn = prompt("input base file name of [output/*.bsw]\n (ex. enter 'myapp' for file 'output/myapp.bsw')");
+        if (!fn.match(/.bsw$/)){
+            fn = fn+".bsw";
+        }
+    }
+    blkexport();
+    var xml = $("#blktxt").val();
+    xml = xml.replace(/&lt;/g, '<');
+    xml = xml.replace(/&gt;/g, '>');
+    if (xml.length < 73) {
+        if (!window.confirm('保存データが空になりますが、よろしいですか？')) return;
+    }
+    $.ajax({
+            type:"POST",
+     url: "save.php",
+     data: {"fn": fn,
+     "src": xml},
+     success: function(a){
+         console.log("Saved as output/"+$fn);
+     }
+     });
+}
 function blkxmlsave(num){
     blkexport();
     var text = $("#blktxt").val();
@@ -415,7 +501,7 @@ function srcexport(){
             type:"POST",
      url: "save.php",
      data: {"fn": "out.php",
-     "src": code},
+     "src": "<?php\n\n"+code},
      success: function(a){
          if (win == null) {
              console.log("new op");
@@ -434,6 +520,16 @@ function srcrun(){
 
 $(document).ready(function(){
     showCode();
+
+    $('[name=bswload_output]').change(function(){
+        var val = $('[name=bswload_output]').val();
+        blkxmlloadfile(val,"output");
+    });
+    $('[name=bswload_samples]').change(function(){
+        var val = $('[name=bswload_samples').val();
+        blkxmlloadfile(val,"samples");
+    });
+
 });
 </script>
 

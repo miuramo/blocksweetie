@@ -2,20 +2,19 @@
 
 require_once("_lib.php");
 
-$db = dbopen("tweet.db");
-$db->exec( "create table if not exists 'tweets' ('id' INTEGER primary key autoincrement not null, 'mes' TEXT not null, 'dt' DATETIME not null)" );
-
-if (isset($_POST['mes'])) {
-  insert($db, "tweets", $_POST);
-  heading("Tweet posted",3);
-}
-heading("Your Tweets",2);
-showtable_withdeledit($db, 'tweets');
-modtable($db, 'tweets');
-heading("Add New Tweet",6);
-echo "<div>";
-  form_start();
-  form_input("mes", [ "type"=>"text" ]);
-  form_submit();
-  form_end();
-echo "</div>";
+title("html01");
+heading("Heading 1",1);
+heading("Heading 2",2);
+heading("Heading 3",3);
+heading("Div is block element",2);
+echo '<div style="background: #efc; padding: 10px;">';
+  echo 'inside of div';
+  br(2);
+  echo 'inside of div';
+echo '</div>';
+heading("Span is inline element",2);
+echo '<span style="background: #fcc; padding: 10px;">';
+  echo 'inside of span';
+  br(2);
+  echo 'inside of span';
+echo '</span>';

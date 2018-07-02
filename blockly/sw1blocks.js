@@ -52,7 +52,7 @@ Blockly.Blocks['sw_field'] = {
         .appendField(new Blockly.FieldCheckbox("FALSE"), "autoincrement")
         .appendField("autoincrement")
         .appendField(new Blockly.FieldCheckbox("TRUE"), "notnull")
-        .appendField("notnull");
+        .appendField("not null");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -132,7 +132,8 @@ Blockly.Blocks['sw_tbl'] = {
         .appendField(new Blockly.FieldTextInput("table_name"), "table");
     this.appendDummyInput()
         .appendField("of ")
-        .appendField(new Blockly.FieldVariable("db"), "db");
+        .appendField(new Blockly.FieldVariable("db"), "db")
+        .appendField("as array");
     this.setInputsInline(true);
     this.setOutput(true, null);
     this.setColour(225);
@@ -337,3 +338,18 @@ Blockly.Blocks['sw_title'] = {
  this.setHelpUrl("");
   }
 };
+
+Blockly.Blocks['sw_echo'] = {
+  init: function() {
+    this.appendValueInput("attribute")
+        .setCheck(null)
+        .appendField("echo")
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(150);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+

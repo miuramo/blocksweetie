@@ -87,9 +87,9 @@ Blockly.PHP['sw_tbl'] = function(block) {
   var text_table = block.getFieldValue('table');
   var variable_db = Blockly.PHP.variableDB_.getName(block.getFieldValue('db'), Blockly.Variables.NAME_TYPE);
   // TODO: Assemble PHP into code variable.
-  var code = 'tbl';
+  var code = 'tbl('+variable_db+', "'+text_table+'")';
   // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.PHP.ORDER_NONE];
+  return [code, Blockly.PHP.ORDER_ATOMIC];
 };
 
 Blockly.PHP['sw_table'] = function(block) {
@@ -150,7 +150,10 @@ Blockly.PHP['sw_form_input'] = function(block) {
   var dropdown_type = block.getFieldValue('type');
   var value_attr = Blockly.PHP.valueToCode(block, 'attr', Blockly.PHP.ORDER_ATOMIC);
   // TODO: Assemble PHP into code variable.
-  var code = 'form_input("'+text_name+'", [ "type"=>"'+dropdown_type+'" ]);\n';
+  if (value_attr.length > 0) value_attr = ", "+value_attr;
+  value_attr = value_attr.replace(/\[/,"");
+  value_attr = value_attr.replace(/\]/,"");
+  var code = 'form_input("'+text_name+'", [ "type"=>"'+dropdown_type+'"'+value_attr+' ]);\n';
   return code;
 };
 
@@ -163,32 +166,51 @@ Blockly.PHP['sw_form_submit'] = function(block) {
 
 Blockly.PHP['sw_div'] = function(block) {
   var value_attribute = Blockly.PHP.valueToCode(block, 'attribute', Blockly.PHP.ORDER_ATOMIC);
+  //rewrite for HTML notation (ad-hoc!!)
+  value_attribute = value_attribute.replace(/^ "/," ");
+  value_attribute = value_attribute.replace(/"=/,"=");
+  value_attribute = value_attribute.replace(/>/,"");
   var statements_content = Blockly.PHP.statementToCode(block, 'content');
   // TODO: Assemble PHP into code variable.
-  var code = 'echo "<div>";\n'+statements_content+'echo "</div>"\n';
+  var code = 'echo \'<div'+value_attribute+'>\';\n'+statements_content+'echo \'</div>\'\n';
   return code;
 };
 
 Blockly.PHP['sw_span'] = function(block) {
   var value_attribute = Blockly.PHP.valueToCode(block, 'attribute', Blockly.PHP.ORDER_ATOMIC);
+  //rewrite for HTML notation (ad-hoc!!)
+  value_attribute = value_attribute.replace(/^ "/," ");
+  value_attribute = value_attribute.replace(/"=/,"=");
+  value_attribute = value_attribute.replace(/>/,"");
   var statements_content = Blockly.PHP.statementToCode(block, 'content');
   // TODO: Assemble PHP into code variable.
-  var code = 'echo "<span>";\n'+statements_content+'echo "</span>"\n';
+  var code = 'echo \'<span'+value_attribute+'>\';\n'+statements_content+'echo \'</span>\'\n';
   return code;
 };
 
 Blockly.PHP['sw_divspan'] = function(block) {
   var dropdown_divspan = block.getFieldValue('divspan');
   var value_attribute = Blockly.PHP.valueToCode(block, 'attribute', Blockly.PHP.ORDER_ATOMIC);
+  //rewrite for HTML notation (ad-hoc!!)
+  value_attribute = value_attribute.replace(/^ "/," ");
+  value_attribute = value_attribute.replace(/"=/,"=");
+  value_attribute = value_attribute.replace(/>/,"");
   var statements_content = Blockly.PHP.statementToCode(block, 'content');
   // TODO: Assemble PHP into code variable.
-  var code = 'echo "<'+dropdown_divspan+'>";\n'+statements_content+'echo "</'+dropdown_divspan+'>";\n';
+  var code = 'echo \'<'+dropdown_divspan+''+value_attribute+'>\';\n'+statements_content+'echo \'</'+dropdown_divspan+'>\';\n';
   return code;
 };
 
 Blockly.PHP['sw_title'] = function(block) {
   var text_text = block.getFieldValue('text');
   // TODO: Assemble PHP into code variable.
-  var code = '...;\n';
+  var code = 'title("'+text_text+'");\n';
+  return code;
+};
+
+Blockly.PHP['sw_echo'] = function(block) {
+  var value_attribute = Blockly.PHP.valueToCode(block, 'attribute', Blockly.PHP.ORDER_ATOMIC);
+  // TODO: Assemble PHP into code variable.
+  var code = 'echo '+value_attribute+';\n';
   return code;
 };
