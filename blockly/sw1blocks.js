@@ -15,7 +15,9 @@ Blockly.Blocks['sw_create_table'] = {
         .appendField("create table ")
         .appendField(new Blockly.FieldCheckbox("TRUE"), "ifnotexists")
         .appendField("if not exists")
-        .appendField(new Blockly.FieldTextInput("table_name"), "table");
+        .appendField(new Blockly.FieldTextInput("table_name"), "table")
+        .appendField("on")
+        .appendField(new Blockly.FieldVariable("db"), "db");
     this.appendStatementInput("schema")
         .setCheck(null);
     this.setInputsInline(true);
@@ -46,6 +48,7 @@ Blockly.Blocks['sw_field'] = {
         .appendField("field")
         .appendField(new Blockly.FieldTextInput("id"), "fname");
     this.appendDummyInput()
+        .appendField(" ")
         .appendField(new Blockly.FieldDropdown([["INTEGER","INTEGER"], ["TEXT","TEXT"], ["DATETIME","DATETIME"], ["REAL","REAL"], ["BLOB","BLOB"], ["IMAGE","IMAGE"]]), "fields")
         .appendField(new Blockly.FieldCheckbox("FALSE"), "primarykey")
         .appendField("primary key")
@@ -75,13 +78,26 @@ Blockly.Blocks['sw_isset'] = {
   }
 };
 
+Blockly.Blocks['sw_isarray'] = {
+  init: function() {
+    this.appendValueInput("NAME")
+        .setCheck(null)
+        .appendField("is_array");
+    this.setInputsInline(true);
+    this.setOutput(true, null);
+    this.setColour(60);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
 Blockly.Blocks['sw_postgetfile'] = {
   init: function() {
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown([["POST","$_POST"], ["GET","$_GET"], ["FILE","$_FILE"]]), "PGF");
     this.setInputsInline(true);
     this.setOutput(true, null);
-    this.setColour(230);
+    this.setColour(330);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -100,7 +116,7 @@ Blockly.Blocks['sw_insert'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(0);
+    this.setColour(240);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -184,7 +200,7 @@ Blockly.Blocks['sw_postgetfile_idx'] = {
         .setCheck(null);
     this.setInputsInline(true);
     this.setOutput(true, null);
-    this.setColour(230);
+    this.setColour(330);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -272,8 +288,8 @@ Blockly.Blocks['sw_form_submit'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(180);
- this.setTooltip("");
- this.setHelpUrl("");
+    this.setTooltip("");
+    this.setHelpUrl("");
   }
 };
 
@@ -341,15 +357,16 @@ Blockly.Blocks['sw_title'] = {
 
 Blockly.Blocks['sw_echo'] = {
   init: function() {
-    this.appendValueInput("attribute")
-        .setCheck(null)
-        .appendField("echo")
-    this.setInputsInline(false);
+    this.appendDummyInput()
+        .appendField("echo");
+    this.appendValueInput("attr")
+        .setCheck(null);
+    this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(150);
- this.setTooltip("");
- this.setHelpUrl("");
+    this.setTooltip("");
+    this.setHelpUrl("");
   }
 };
 

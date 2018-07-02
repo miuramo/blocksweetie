@@ -135,7 +135,7 @@ echo '</text'.'area>';
       </block>
       <block type="sw_field">
       <field name="fname">id</field>
-      <field name="fields">OPTIONNAME</field>
+      <field name="fields">INTEGER</field>
       <field name="primarykey">TRUE</field>
       <field name="autoincrement">TRUE</field>
       <field name="notnull">TRUE</field>
@@ -164,9 +164,18 @@ echo '</text'.'area>';
       <field name="db" id="HPzA33AeX+H)?T^TF;_5" variabletype="">db</field>
       </block>
       <block type="sw_postgetfile">
-      <field name="PGF">OPTIONNAME</field>
+      <field name="PGF">POST</field>
+      </block>
+      <block type="sw_postgetfile_idx">
+      <field name="PGF">POST</field>
+      <field name="index">
+        <block type="text" id="O07_Y9)^AdqwK[KDX7">
+        <field name="TEXT">name</field>
+        </block>
+      </field>
       </block>
       <block type="sw_isset"></block>
+      <block type="sw_isarray"></block>
       </category>
       <category name="Sw HTML" colour="#80a55b">
       <block type="sw_heading">
@@ -204,6 +213,8 @@ echo '</text'.'area>';
       <block type="lists_create_with"></block>
       <block type="php_print_recursive"></block>
       <block type="php_print_recursive_array"></block>
+      <block type="php_foreach_var"></block>
+      <block type="php_foreach_array"></block>
       </category>
 
 

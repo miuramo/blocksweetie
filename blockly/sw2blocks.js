@@ -32,7 +32,7 @@ Blockly.Blocks['php_assoc_addpair'] = {
     init: function() {
 	this.appendDummyInput()
 	    .appendField("add")
-            .appendField(new Blockly.FieldVariable("db"), "db")
+            .appendField(new Blockly.FieldVariable("ary"), "ary")
 
 	    .appendField(" [")
             .appendField(new Blockly.FieldTextInput("key"), "keyname")
@@ -53,7 +53,7 @@ Blockly.Blocks['php_print_recursive'] = {
     init: function() {
 	this.appendDummyInput()
 	    .appendField("print recursive")
-            .appendField(new Blockly.FieldVariable("db"), "db")
+            .appendField(new Blockly.FieldVariable("ary"), "ary")
 	this.setInputsInline(false);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
@@ -76,4 +76,45 @@ Blockly.Blocks['php_print_recursive_array'] = {
 	this.setTooltip("");
 	this.setHelpUrl("");
     }
+};
+
+Blockly.Blocks['php_foreach_var'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("foreach")
+        .appendField(new Blockly.FieldVariable("ary"), "ary")
+        .appendField("as")
+        .appendField(new Blockly.FieldVariable("key"), "keyvar")
+        .appendField("=>")
+        .appendField(new Blockly.FieldVariable("val"), "valvar");
+    this.appendStatementInput("content")
+        .setCheck(null);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['php_foreach_array'] = {
+  init: function() {
+    this.appendValueInput("ary")
+        .setCheck(null)
+        .appendField("foreach");
+    this.appendDummyInput()
+        .appendField("as")
+        .appendField(new Blockly.FieldVariable("key"), "keyvar")
+        .appendField("=>")
+        .appendField(new Blockly.FieldVariable("val"), "valvar");
+    this.appendStatementInput("content")
+        .setCheck(null);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
 };
