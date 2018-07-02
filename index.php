@@ -50,10 +50,12 @@ for($i=1;$i<=7;$i++){
       </td><td>
       <textarea id="src" style="font-size: 15px;font-family: verdana; background:#fff; height: 690px; width: 400px;">
       contents
-      </textarea>
+      </text<?php echo "area>";?>
       </td></tr></table>
-<textarea id="blktxt" style="visible:false;"></textarea> -->
-<!-- <textarea id="blktxt"></textarea> -->
+<textarea id="blktxt" style="visible:false;">
+</text<?php echo "area>";?>
+<textarea id="blktxt">
+</text<?php echo "area>";?>
 
 
       <xml id="toolbox" style="display: none">
