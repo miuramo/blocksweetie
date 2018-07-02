@@ -508,11 +508,12 @@ function blkxmlsave(num){
 var win;
 function srcexport(){
     var code = $("#src").text();
+    code = "<"+"?php\n\n" + code;
     $.ajax({
             type:"POST",
      url: "save.php",
      data: {"fn": "out.php",
-     "src": "<?php\n\n"+code},
+     "src": code},
      success: function(a){
          if (win == null) {
              console.log("new op");
