@@ -7,10 +7,18 @@
       <script src="blockly/blocks_compressed.js"></script>
       <script src="blockly/php_compressed.js"></script>
       <script src="blockly/msg/js/en.js"></script>
-      <script src="blockly/sw1blocks.js"></script> <!-- load Sweetie Blocks -->
-      <script src="blockly/sw1php.js"></script> <!-- load Sweetie Blocks -->
-      <script src="blockly/sw2blocks.js"></script> <!-- load Sweetie Blocks -->
-      <script src="blockly/sw2php.js"></script> <!-- load Sweetie Blocks -->
+      <script src="blockly/swblk01db.js"></script> 
+      <script src="blockly/swphp01db.js"></script> 
+      <script src="blockly/swblk02vars.js"></script> 
+      <script src="blockly/swphp02vars.js"></script> 
+      <script src="blockly/swblk03table.js"></script> 
+      <script src="blockly/swphp03table.js"></script> 
+      <script src="blockly/swblk04html.js"></script> 
+      <script src="blockly/swphp04html.js"></script> 
+      <script src="blockly/swblk05form.js"></script> 
+      <script src="blockly/swphp05form.js"></script> 
+      <script src="blockly/swblk06assoc.js"></script> 
+      <script src="blockly/swphp06assoc.js"></script> 
       <script
       src="https://code.jquery.com/jquery-1.12.4.min.js"
       integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
@@ -145,7 +153,10 @@ echo '</text'.'area>';
       <field name="db" id="~t62Y3_YY5|vs)R,q22E" variabletype="">db</field>
       </block>
       </category>
-      <category name="Sw Vars" colour="#A65C81" custom="VARIABLE"></category>
+
+      <category name="Sw Vars" colour="#A65C81" custom="VARIABLE">
+      </category>
+
       <category name="Sw Table" colour="#a55b5b">
       <block type="sw_showtable">
       <field name="table">table_name</field>
@@ -177,23 +188,24 @@ echo '</text'.'area>';
       <block type="sw_isset"></block>
       <block type="sw_isarray"></block>
       </category>
+
       <category name="Sw HTML" colour="#80a55b">
+      <block type="sw_title">
+      <field name="text">text</field>
+      </block>
       <block type="sw_heading">
       <field name="level">1</field>
       <field name="text">text</field>
       </block>
+      <block type="sw_echo"></block>
       <block type="sw_br">
       <field name="level">1</field>
       </block>
-      <block type="sw_div"></block>
-      <block type="sw_span"></block>
       <block type="sw_divspan">
       <field name="divspan">div</field>
       </block>
-      <block type="sw_title">
-      <field name="text">text</field>
-      </block>
-      <block type="sw_echo"></block>
+      <block type="sw_div"></block>
+      <block type="sw_span"></block>
       </category>
       <category name="Sw Form" colour="#5ba593">
       <block type="sw_form_start"></block>
@@ -222,7 +234,7 @@ echo '</text'.'area>';
 
       <xml id="startBlocks" style="display: none">
 
-      <block type="sw_init" id="kfo$6#Q3]5=ZpH{U57I5" x="13" y="13">
+<!--  <block type="sw_init" id="kfo$6#Q3]5=ZpH{U57I5" x="13" y="13">
       <next>
       <block type="variables_set" id="$6/yQZi?Zn];r2AJaKF0">
       <field name="VAR" id="A5=PRcD@gV3rhEz?dak:" variabletype="">db</field>
@@ -375,11 +387,11 @@ echo '</text'.'area>';
       </next>
       </block>
       </next>
-      </block>
+      </block> 
       </next>
       </block>
       </next>
-      </block>
+      </block> -->
 
       </xml> <!-- end of workspace -->
 
