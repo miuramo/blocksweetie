@@ -3,6 +3,9 @@ Blockly.Blocks['sw_title'] = {
 	this.appendDummyInput()
             .appendField("title")
             .appendField(new Blockly.FieldTextInput("text"), "text");
+	this.appendDummyInput()
+            .appendField("(html)")
+            .appendField(new Blockly.FieldCheckbox("FALSE"), "inhtml");
 	this.setInputsInline(true);
 	this.setPreviousStatement(true, null);
 	this.setNextStatement(true, null);
@@ -33,6 +36,9 @@ Blockly.Blocks['sw_heading'] = {
             .appendField("heading")
             .appendField(new Blockly.FieldNumber(1, 1, 6), "level")
             .appendField(new Blockly.FieldTextInput("text"), "text");
+	this.appendDummyInput()
+            .appendField("(html)")
+            .appendField(new Blockly.FieldCheckbox("FALSE"), "inhtml");
 	this.setInputsInline(true);
 	this.setPreviousStatement(true, null);
 	this.setNextStatement(true, null);
@@ -47,6 +53,9 @@ Blockly.Blocks['sw_br'] = {
 	this.appendDummyInput()
             .appendField("br")
             .appendField(new Blockly.FieldNumber(1, 1, 30), "level");
+	this.appendDummyInput()
+            .appendField("(html)")
+            .appendField(new Blockly.FieldCheckbox("FALSE"), "inhtml");
 	this.setInputsInline(true);
 	this.setPreviousStatement(true, null);
 	this.setNextStatement(true, null);
@@ -72,11 +81,11 @@ Blockly.Blocks['sw_divspan'] = {
   }
 };
 
-Blockly.Blocks['sw_div'] = {
+Blockly.Blocks['sw_tabletr'] = {
   init: function() {
     this.appendValueInput("attribute")
         .setCheck(null)
-        .appendField("div");
+        .appendField(new Blockly.FieldDropdown([["table","table"], ["tr","tr"], ["ul","ul"], ["ol","ol"]]), "tabletr");
     this.appendStatementInput("content")
         .setCheck(null);
     this.setInputsInline(true);
@@ -88,11 +97,11 @@ Blockly.Blocks['sw_div'] = {
   }
 };
 
-Blockly.Blocks['sw_span'] = {
+Blockly.Blocks['sw_tdth'] = {
   init: function() {
     this.appendValueInput("attribute")
         .setCheck(null)
-        .appendField("span");
+        .appendField(new Blockly.FieldDropdown([["td","td"], ["th","th"], ["li","li"]]), "tdth");
     this.appendStatementInput("content")
         .setCheck(null);
     this.setInputsInline(true);
@@ -103,4 +112,5 @@ Blockly.Blocks['sw_span'] = {
  this.setHelpUrl("");
   }
 };
+
 

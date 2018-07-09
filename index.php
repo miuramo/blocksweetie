@@ -7,6 +7,8 @@
       <script src="blockly/blocks_compressed.js"></script>
       <script src="blockly/php_compressed.js"></script>
       <script src="blockly/msg/js/en.js"></script>
+
+      <script src="blockly/jsaryutil.js"></script>
       <script src="blockly/swblk01db.js"></script> 
       <script src="blockly/swphp01db.js"></script> 
       <script src="blockly/swblk02vars.js"></script> 
@@ -75,7 +77,7 @@ echo "<button onclick=\"blkxmlsavefile()\">Save as output/xxx.bsw</button> ";
       <label for="editandrun" style="font-size:small;">Edit &amp; Run</label>
 </td></tr>
       <tr><td>
-      <div id="blocklyDiv" style="height: 800px; width: 780px;"></div>
+      <div id="blocklyDiv" style="height: 800px; width: 860px;"></div>
       </td><td>
       <textarea id="src" style="font-size: 15px;font-family: verdana; background:#fff; height: 790px; width: 400px;">
       contents
@@ -204,8 +206,10 @@ echo '</text'.'area>';
       <block type="sw_divspan">
       <field name="divspan">div</field>
       </block>
-      <block type="sw_div"></block>
-      <block type="sw_span"></block>
+      <block type="sw_tabletr">
+      <field name="tabletr">table</field>
+      </block>
+      <block type="sw_tdth"></block>
       </category>
       <category name="Sw Form" colour="#5ba593">
       <block type="sw_form_start"></block>
@@ -233,172 +237,19 @@ echo '</text'.'area>';
       </xml>
 
       <xml id="startBlocks" style="display: none">
-
-<!--  <block type="sw_init" id="kfo$6#Q3]5=ZpH{U57I5" x="13" y="13">
-      <next>
-      <block type="variables_set" id="$6/yQZi?Zn];r2AJaKF0">
-      <field name="VAR" id="A5=PRcD@gV3rhEz?dak:" variabletype="">db</field>
-      <value name="VALUE">
-      <block type="sw_dbopen" id="s,@=7{nPeuKZy*GaJJtk">
-      <field name="dbfilename">master.db</field>
-      </block>
-      </value>
-      <next>
-      <block type="sw_create_table" id="*IK[=Q+7,90$tDhM@!_4">
-      <field name="ifnotexists">TRUE</field>
-      <field name="table">items</field>
-      <statement name="schema">
-      <block type="sw_field" id="Fl$g@xT]wl$3KL2R81?4">
-      <field name="fname">id</field>
-      <field name="fields">INTEGER</field>
-      <field name="primarykey">TRUE</field>
-      <field name="autoincrement">TRUE</field>
-      <field name="notnull">TRUE</field>
-      <next>
-      <block type="sw_field" id="CXe@s8uUs_w#PlW{ueuj">
-      <field name="fname">name</field>
-      <field name="fields">TEXT</field>
-      <field name="primarykey">FALSE</field>
-      <field name="autoincrement">FALSE</field>
-      <field name="notnull">TRUE</field>
-      <next>
-      <block type="sw_field" id="W]fnb4QR_/(5UG)JXAub">
-      <field name="fname">price</field>
-      <field name="fields">INTEGER</field>
-      <field name="primarykey">FALSE</field>
-      <field name="autoincrement">FALSE</field>
-      <field name="notnull">TRUE</field>
-      <next>
-      <block type="sw_field" id="pHt+hMOY[tnV[|KM`W4D">
-      <field name="fname">dt</field>
-      <field name="fields">DATETIME</field>
-      <field name="primarykey">FALSE</field>
-      <field name="autoincrement">FALSE</field>
-      <field name="notnull">TRUE</field>
-      </block>
-      </next>
-      </block>
-      </next>
-      </block>
-      </next>
-      </block>
-      </statement>
-      <next>
-      <block type="controls_if" id="KxF^Px%=|:Cx3C|~DGm8">
-      <value name="IF0">
-      <block type="sw_isset" id="cxrk?Dhlh[VQ3bdr{N%}">
-      <value name="NAME">
-      <block type="sw_postgetfile_idx" id="x$~1_LyG%w,]1~-iLy~V">
-      <field name="PGF">$_POST</field>
-      <value name="index">
-      <block type="text" id="|tO07_Y9)^AdqwK[KDX7">
-      <field name="TEXT">name</field>
-      </block>
-      </value>
-      </block>
-      </value>
-      </block>
-      </value>
-      <statement name="DO0">
-      <block type="sw_insert" id="8{;N%D^s#[odt)Y^H/;o">
-      <field name="table">items</field>
-      <field name="db" id="A5=PRcD@gV3rhEz?dak:" variabletype="">db</field>
-      <value name="data">
-      <block type="sw_postgetfile" id="bPnr|hD[53k,@BL{QR;}">
-      <field name="PGF">$_POST</field>
-      </block>
-      </value>
-      <next>
-      <block type="sw_heading" id="b0ucNrnA,q%fX[]Qc,d-">
-      <field name="level">3</field>
-      <field name="text">An Item added</field>
-      </block>
-      </next>
-      </block>
-      </statement>
-      <next>
-      <block type="sw_heading" id="BZEu!8([gsYwV!=JMww7">
-      <field name="level">2</field>
-      <field name="text">Content of Items Table</field>
-      <next>
-      <block type="sw_showtable" id="R=oCO-T%5x8g45%d]n!!">
-      <field name="table">items</field>
-      <field name="db" id="A5=PRcD@gV3rhEz?dak:" variabletype="">db</field>
-      <field name="deledit">TRUE</field>
-      <next>
-      <block type="sw_jqaddform" id=")VYi1L8Th:y`O*5i2#Gj">
-      <field name="table">items</field>
-      <field name="db" id="A5=PRcD@gV3rhEz?dak:" variabletype="">db</field>
-      <next>
-      <block type="sw_heading" id="!gFFhMB;W{~@Q)@b3xL~">
-      <field name="level">2</field>
-      <field name="text">Add New Item</field>
-      <next>
-      <block type="sw_divspan" id=")uDFjbL@(|igwqd+,8+3">
-      <field name="divspan">div</field>
-
-      <value name="attribute">
-      <block type="php_assoc_pair" id="xx911">
-      <field name="keyname">style</field>
-      <field name="valname">background: #efc; padding: 10px;</field>
-      </block></value>
-
-      <statement name="content">
-      <block type="sw_form_start" id="Z[,Nt,c%aqDlSC`dSQ:k">
-      <next>
-      <block type="sw_form_input" id="cs4|}K4u8j+r0K9t$PRe">
-      <field name="name">name</field>
-      <field name="type">text</field>
-      <value name="attr">
-      <block type="php_assoc_pair" id="xx912">
-      <field name="keyname">placeholder</field>
-      <field name="valname">input text</field>
-      </block></value>
-      <next>
-      <block type="sw_form_input" id="%S@c}bdp@YV7f%}%9KPg">
-      <field name="name">price</field>
-      <value name="attr">
-      <block type="php_assoc_pair" id="xx912">
-      <field name="keyname">placeholder</field>
-      <field name="valname">input price</field>
-      </block></value>
-      <next>
-      <block type="sw_form_submit" id="/-L-LMKVsNdBH1HWAU:%">
-      <next>
-      <block type="sw_form_end" id="hGhv%QeGsDcol!ebb!1U"></block>
-      </next>
-      </block>
-      </next>
-      </block>
-      </next>
-      </block>
-      </next>
-      </block>
-      </statement>
-      </block>
-      </next>
-      </block>
-      </next>
-      </block>
-      </next>
-      </block>
-      </next>
-      </block>
-      </next>
-      </block>
-      </next>
-      </block> 
-      </next>
-      </block>
-      </next>
-      </block> -->
-
       </xml> <!-- end of workspace -->
 
       <script>
       var workspace = Blockly.inject('blocklyDiv',
                                      {media: 'blockly/media/',
-                                      toolbox: document.getElementById('toolbox')});
+                                      toolbox: document.getElementById('toolbox'),
+                                      zoom: {controls: true, 
+                                             wheel: true,
+                                             startScale:1.0,
+                                             maxScale:3,
+                                             minScale:0.3,
+                                             scaleSpeed:1.2}
+                                     });
 Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
                            workspace);
 
@@ -503,7 +354,7 @@ function blkxmlsavefile(fn = null){
      data: {"fn": fn,
      "src": xml},
      success: function(a){
-         console.log("Saved as output/"+$fn);
+         console.log("Saved as output/"+fn);
      }
      });
 }

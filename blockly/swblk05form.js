@@ -2,12 +2,13 @@ Blockly.Blocks['sw_form_start'] = {
     init: function() {
 	this.appendDummyInput()
             .appendField("form_start method=")
-            .appendField(new Blockly.FieldDropdown([["POST","POST"], ["GET","GET"]]), "PG")
+            .appendField(new Blockly.FieldDropdown([["POST","POST"], ["GET","GET"]]), "method")
 //	    .appendField(" enctype=")
-	    .appendField(new Blockly.FieldDropdown([["(default)","enctype='application/x-www-form-urlencoded'"], ["enctype='multipart/form-data'","enctype='multipart/form-data'"]]), "ENC");
+//	    .appendField(new Blockly.FieldDropdown([["(default)",'"enctype"=>"application/x-www-form-urlencoded"'], ['enctype="multipart/form-data"','"enctype"=>"multipart/form-data"']]), "enctype");
+	    .appendField(new Blockly.FieldDropdown([["(default)",' '], ['enctype="multipart/form-data"','multipart/form-data']]), "enctype");
 	this.appendValueInput("attr");
 	this.appendDummyInput()
-            .appendField("(in html)")
+            .appendField("(html)")
             .appendField(new Blockly.FieldCheckbox("FALSE"), "inhtml");
 
 	this.setInputsInline(true);
@@ -24,7 +25,7 @@ Blockly.Blocks['sw_form_end'] = {
 	this.appendDummyInput()
             .appendField("form_end");
 	this.appendDummyInput()
-            .appendField("(in html)")
+            .appendField("(html)")
             .appendField(new Blockly.FieldCheckbox("FALSE"), "inhtml");
 	this.setInputsInline(true);
 	this.setPreviousStatement(true, null);
@@ -44,7 +45,7 @@ Blockly.Blocks['sw_form_input'] = {
 	this.appendValueInput("attr")
             .setCheck(null);
 	this.appendDummyInput()
-            .appendField("(in html)")
+            .appendField("(html)")
             .appendField(new Blockly.FieldCheckbox("FALSE"), "inhtml");
 	this.setInputsInline(true);
 	this.setPreviousStatement(true, null);
@@ -62,7 +63,7 @@ Blockly.Blocks['sw_form_submit'] = {
 	this.appendValueInput("attr")
             .setCheck(null);
 	this.appendDummyInput()
-            .appendField("(in html)")
+            .appendField("(html)")
             .appendField(new Blockly.FieldCheckbox("FALSE"), "inhtml");
 	this.setInputsInline(true);
 	this.setPreviousStatement(true, null);

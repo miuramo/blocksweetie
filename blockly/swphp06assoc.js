@@ -11,7 +11,15 @@ Blockly.PHP['php_assoc_pair_string'] = function(block) {
     var value_name = Blockly.PHP.valueToCode(block, 'NAME', Blockly.PHP.ORDER_ATOMIC);
     //  var code = '["'+text_keyname+'"] = "'+value_name+'";\n';
     //  var code = ' \''+text_keyname+'\'=\''+text_valname+'\'';
-    var code = ' ["'+text_keyname+'"=>"'+text_valname+'"]';
+    //    if (text_keyname === void 0) text_keyname = "undef";
+    var ary = {};
+    jsappend(ary, value_name);
+    console.log(value_name);
+    if (value_name.match(/=>/)){
+	var code = ' ["'+text_keyname+'"=>'+jsary2php(ary)+']';
+    } else {
+	var code = ' ["'+text_keyname+'"=>"'+value_name+'"]';
+    }
     return [code, Blockly.PHP.ATOMIC];
 };
 
