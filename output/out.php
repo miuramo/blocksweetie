@@ -1,3 +1,43 @@
 <?php
 
-["key"=>["key"=>"[key"]];
+require_once("_lib.php");
+
+echo '<title>table and list</title>';
+heading("Table and List",2);
+echo '<table border="1">';
+  echo '<tr>';
+    echo '<th style="background:#fcc;">';
+      echo('Table Header1');
+    echo '</th>';
+    echo '<th>';
+      echo('Table Header2');
+    echo '</th>';
+  echo '</tr>';
+  echo '<tr>';
+    echo '<td>';
+      echo('Table Data1');
+    echo '</td>';
+    echo '<td>';
+      echo('Table Data2');
+    echo '</td>';
+  echo '</tr>';
+  echo '<tr>';
+    echo '<td>';
+      echo('Table Data3');
+    echo '</td>';
+    echo '<td>';
+      echo('Table Data4');
+    echo '</td>';
+  echo '</tr>';
+echo '</table>';
+echo '<ul style="background:#ccf;">';
+  echo '<li>';
+    echo('list item1');
+  echo '</li>';
+  echo '<li>';
+    echo('list item2');
+  echo '</li>';
+  echo '<li>';
+    echo('list item3');
+  echo '</li>';
+echo '</ul>';
