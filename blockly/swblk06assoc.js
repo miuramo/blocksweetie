@@ -118,3 +118,38 @@ Blockly.Blocks['php_foreach_array'] = {
  this.setHelpUrl("");
   }
 };
+
+Blockly.Blocks['php_rand'] = {
+    init: function() {
+	this.appendDummyInput()
+            .appendField("random min")
+            .appendField(new Blockly.FieldNumber(1, 1, 999), "min")
+            .appendField("max")
+            .appendField(new Blockly.FieldNumber(100, 1, 999), "max")
+            .appendField("");
+	this.setInputsInline(true);
+	this.setOutput(true,null);
+//	this.setPreviousStatement(true, null);
+//	this.setNextStatement(true, null);
+	this.setColour(230);
+	this.setTooltip("");
+	this.setHelpUrl("");
+    }
+};
+
+Blockly.Blocks['php_date'] = {
+    init: function() {
+	this.appendValueInput("YMD")
+	    .setCheck(null)
+            .appendField("date");
+	this.appendDummyInput()
+	.appendField("");
+	this.setInputsInline(true);
+	this.setOutput(true,null);
+//	this.setPreviousStatement(true, null);
+//	this.setNextStatement(true, null);
+	this.setColour(230);
+	this.setTooltip("");
+	this.setHelpUrl("");
+    }
+};

@@ -77,7 +77,7 @@ echo "<button onclick=\"blkxmlsavefile()\">Save as output/xxx.bsw</button> ";
       <label for="editandrun" style="font-size:small;">Edit &amp; Run</label>
 </td></tr>
       <tr><td>
-      <div id="blocklyDiv" style="height: 800px; width: 860px;"></div>
+      <div id="blocklyDiv" style="height: 800px; width: 750px;"></div>
       </td><td>
       <textarea id="src" style="font-size: 15px;font-family: verdana; background:#fff; height: 790px; width: 400px;">
       contents
@@ -110,6 +110,9 @@ echo '</text'.'area>';
       <block type="math_number"></block>
       <block type="math_arithmetic"></block>
       <block type="math_single"></block>
+      <block type="php_rand"></block>
+      <block type="php_date">
+      </block>
       </category>
       <category name="Lists">
       <block type="lists_create_empty"></block>

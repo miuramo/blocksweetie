@@ -62,3 +62,17 @@ Blockly.PHP['php_foreach_array'] = function(block) {
     var code = 'foreach ('+variable_ary+' as '+variable_key+' => '+variable_val+'){\n'+statements_content+'}\n';
     return code;
 };
+
+
+Blockly.PHP['php_rand'] = function(block) {
+    var number_min = block.getFieldValue('min');
+    var number_max = block.getFieldValue('max');
+    var code = 'rand('+number_min+','+number_max+')';
+    return [code, Blockly.PHP.ATOMIC];
+};
+
+Blockly.PHP['php_date'] = function(block) {
+    var variable_ymd = Blockly.PHP.valueToCode(block, 'YMD', Blockly.PHP.ORDER_ATOMIC);
+    var code = 'date('+variable_ymd+')';
+    return [code, Blockly.PHP.ATOMIC];
+};
