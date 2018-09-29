@@ -18,7 +18,11 @@ Blockly.PHP['sw_tbl'] = function(block) {
 Blockly.PHP['sw_table'] = function(block) {
     var value_name = Blockly.PHP.valueToCode(block, 'NAME', Blockly.PHP.ORDER_ATOMIC);
     var dropdown_format = block.getFieldValue('format');
-    var code = 'table();\n';
+    if (dropdown_format=='table'){
+      var code = 'table('+value_name+');\n';
+    } else {
+      var code = 'echo "<pre>";\nprint_r('+value_name+');\necho "</pre>";\n';
+    }
     return code;
 };
 
