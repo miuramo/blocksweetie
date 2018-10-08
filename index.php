@@ -58,23 +58,17 @@ Block Sweetie
     }
 echo bswlist("samples");
 echo bswlist("output");
-//echo "<br>";
-/*for($i=1;$i<=7;$i++){
-    echo "<button onclick=\"blkxmlload({$i})\">L{$i}</button> ";
-}
-for($i=1;$i<=7;$i++){
-    echo "<button onclick=\"blkxmlsave({$i})\">S{$i}</button> ";
-    }*/
+
 echo "<button onclick=\"blkxmlsavefile()\">Save as output/xxx.bsw</button> ";
 ?>
       <button onclick="wsclear()">Clear</button>
     &nbsp; 
       <a target="_blank" href="output/phpliteadmin.php">phpliteadmin</a>
       </td><td>
-      <button onclick="srcexport()">Export</button>
-      <button onclick="srcrun()">Run</button>
+      <button onclick="block2src()">Export(Block to Text)</button>
+    <button onclick="srcsaveandrun()">Save &amp; Run</button>
       <input type="checkbox" id="editandrun" checked="checked">
-      <label for="editandrun" style="font-size:small;">Edit &amp; Run</label>
+      <label for="editandrun" style="font-size:small;">Auto Export &amp; Run</label>
 </td></tr>
       <tr><td>
       <div id="blocklyDiv" style="height: 800px; width: 750px;"></div>
@@ -262,20 +256,25 @@ function changeEvent(primaryEvent) {
     if (primaryEvent.type == Blockly.Events.UI) {
         return;  // Don't mirror UI events.
     }
-    showCode();
+
+    var current_blkxml = blktext();
+    if (loaded_blkxml != current_blkxml) modified = 1; else modified = 0;
     var editandrun = $('#editandrun').prop('checked');
-    if (editandrun) srcexport();
+    if (editandrun) {
+        block2src();
+        srcsaveandrun();
+    }
 }
 
 
-function showCode() {
+function block2src() {
     // Generate PHP code and display it.
     //       Blockly.Javascript.INFINITE_LOOP_TRAP = null;
     var code = Blockly.PHP.workspaceToCode(workspace);
     //    code = code.replace(/\$db;/,"");
     code = code.replace(/\$[\w]+;/g,""); // remove variable definitions on top
     code = code.trim();
-    $("#src").text(code);
+    $("#src").val(code);
 }
 
 function wsclear(){
@@ -302,10 +301,13 @@ function runCode() {
     workspace.clear();
     }*/
 
-function blkexport(){
+function blktext(){
 	var xml = Blockly.Xml.workspaceToDom(workspace);
 	var text = Blockly.Xml.domToText(xml);
-    $("#blktxt").val(text);
+    return text;
+}
+function blkexport(){
+    $("#blktxt").val( blktext() );
 }
 function blkimport(){
     workspace.clear();
@@ -329,12 +331,18 @@ function blkxmlloadfile(fn = null, dir = null){
         if (fn=="" || fn == null) return;
     } else {
         if (fn=="") return;
-        if (!confirm("really load from file "+fn+" ? (Save blocks before load!!)")) return;
+        blkexport();
+        var oldsrc = $("#blktxt").val();
+        if (oldsrc.length > 71 && modified){
+            if (!confirm("really load from file "+fn+" ? (Save blocks before load!!)")) return;
+        }
     }
+    // save current block code
     if (dir ==null) dir = "output";
     $.get(dir+"/"+fn).done(function(txt){
-      $("#blktxt").val(txt);
+      $("#blktxt").val(txt);  loaded_blkxml = txt;
       blkimport();
+      modified = 0;
     });
 }
 function blkxmlsavefile(fn = null){
@@ -372,8 +380,11 @@ function blkxmlsave(num){
     localStorage.setItem("bsw"+num, text);
 }
 var win;
-function srcexport(){
-    var code = $("#src").text();
+var modified = 0;
+var loaded_blkxml;
+function srcsaveandrun(){
+    //    var code = $("#src").text();
+    var code = $("#src").val();
     code = "<"+"?php\n\n" + code;
     $.ajax({
             type:"POST",
@@ -382,22 +393,19 @@ function srcexport(){
      "src": code},
      success: function(a){
          if (win == null) {
-             console.log("new op");
+             //             console.log("new op");
              win = window.open("output/out.php","out","left: 100, top:100, width=500, height=500");
          } else {
-             console.log("reload");
+             //             console.log("reload");
              win.location.href = "output/out.php";
          }
      }
      });
     
 }
-function srcrun(){
-
-}
 
 $(document).ready(function(){
-    showCode();
+    block2src();
 
     $('[name=bswload_output]').change(function(){
         var val = $('[name=bswload_output]').val();
