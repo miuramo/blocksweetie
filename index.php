@@ -21,10 +21,14 @@
       <script src="blockly/swphp05form.js"></script> 
       <script src="blockly/swblk06assoc.js"></script> 
       <script src="blockly/swphp06assoc.js"></script> 
-      <script
+      <!--      <script
       src="https://code.jquery.com/jquery-1.12.4.min.js"
       integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
-      crossorigin="anonymous"></script>
+      crossorigin="anonymous"></script> -->
+      <script src="jquery.ui.layout/js/jquery.js"></script>
+      <script src="jquery.ui.layout/js/jquery-ui.js"></script>
+      <script src="jquery.ui.layout/js/jquery.layout.js"></script>
+
       <style>
       body {
           background-color: #eef;
@@ -38,233 +42,216 @@
 </head>
 <body>
 
-<table>
-<tr><td>
-Block Sweetie
+<div class="ui-layout-north">
+          Block Sweetie
 <?php
-    function bswlist($dir){
-        if (!is_dir($dir)) return [];
-        $files = scandir($dir);
-        $out = "<select name=\"bswload_{$dir}\"')\">\n";
-        $out .= "<option value=\"\">Load from {$dir}</option>";
-        foreach($files as $n=>$f){
-            if ($f=="." || $f=="..") continue;
-            if (preg_match("/.bsw/", $f)){
-              $out .= "<option value=\"{$f}\">{$f}</option>\n";
-            }
-        }
-        $out .= "</select>\n";
-        return $out;
-    }
+          function bswlist($dir){
+              if (!is_dir($dir)) return [];
+              $files = scandir($dir);
+              $out = "<select name=\"bswload_{$dir}\"')\">\n";
+              $out .= "<option value=\"\">Load from {$dir}</option>";
+              foreach($files as $n=>$f){
+                  if ($f=="." || $f=="..") continue;
+                  if (preg_match("/.bsw/", $f)){
+                      $out .= "<option value=\"{$f}\">{$f}</option>\n";
+                  }
+              }
+              $out .= "</select>\n";
+              return $out;
+          }
 echo bswlist("samples");
 echo bswlist("output");
 
 echo "<button onclick=\"blkxmlsavefile()\">Save as output/xxx.bsw</button> ";
 ?>
-      <button onclick="wsclear()">Clear</button>
+<button onclick="wsclear()">Clear</button>
     &nbsp; 
-      <a target="_blank" href="output/phpliteadmin.php">phpliteadmin</a>
-      </td><td>
-      <button onclick="block2src()">Export(Block to Text)</button>
+<a target="_blank" href="output/phpliteadmin.php">phpliteadmin</a>
+    <button onclick="block2src()">Export(Block to Text)</button>
     <button onclick="srcsaveandrun()">Save &amp; Run</button>
-      <input type="checkbox" id="editandrun" checked="checked">
-      <label for="editandrun" style="font-size:small;">Auto Export &amp; Run</label>
-</td></tr>
-      <tr><td>
-      <div id="blocklyDiv" style="height: 800px; width: 750px;"></div>
-      </td><td>
-      <textarea id="src" style="font-size: 15px;font-family: verdana; background:#fff; height: 790px; width: 400px;">
-      contents
-      </text<?php echo "area>";?>
-      </td></tr></table>
+<input type="checkbox" id="editandrun" checked="checked">
+                                                     <label for="editandrun" style="font-size:small;">Auto Export &amp; Run</label>
+
+</div>
+<div id="blocklyDiv" class="ui-layout-center" style="position: absolute">
+</div>
+<textarea id="src" class="ui-layout-east" style="font-size: 15px;font-family: verdana; background:#fff; height: 790px; width: 400px;">
+</text<?php echo "area>";?>
+
 <?php
 echo '<textarea id="blktxt" style="visible:false;">';
 echo '</text'.'area>';
 ?>
 
-      <xml id="toolbox" style="display: none">
-      <category name="Logic">
-      <block type="controls_if"></block>
-      <block type="logic_compare"></block>
-      <block type="logic_operation"></block>
-      <block type="logic_negate"></block>
-      <block type="logic_boolean"></block>
-      </category>
-      <category name="Loops">
-      <block type="controls_repeat_ext">
-      <value name="TIMES">
-      <block type="math_number">
-      <field name="NUM">10</field>
-      </block>
-      </value>
-      </block>
-      <block type="controls_whileUntil"></block>
-      </category>
-      <category name="Math">
-      <block type="math_number"></block>
-      <block type="math_arithmetic"></block>
-      <block type="math_single"></block>
-      <block type="php_rand"></block>
-      <block type="php_date">
-      </block>
-      </category>
-      <category name="Lists">
-      <block type="lists_create_empty"></block>
-      <block type="lists_create_with"></block>
-      <block type="lists_repeat">
-      <value name="NUM">
-      <block type="math_number">
-      <field name="NUM">5</field>
-      </block>
-      </value>
-      </block>
-      <block type="lists_length"></block>
-      <block type="lists_isEmpty"></block>
-      <block type="lists_indexOf"></block>
-      <block type="lists_getIndex"></block>
-      <block type="lists_setIndex"></block>
-      </category>
-      <category name="Variables" custom="VARIABLE"></category>
-      <category name="Text">
-      <block type="text"></block>
-      <block type="text_length"></block>
-      <block type="text_print"></block>
-      </category>
+<xml id="toolbox" style="display: none">
+             <category name="Logic">
+             <block type="controls_if"></block>
+             <block type="logic_compare"></block>
+             <block type="logic_operation"></block>
+             <block type="logic_negate"></block>
+             <block type="logic_boolean"></block>
+             </category>
+             <category name="Loops">
+             <block type="controls_repeat_ext">
+             <value name="TIMES">
+             <block type="math_number">
+             <field name="NUM">10</field>
+             </block>
+             </value>
+             </block>
+             <block type="controls_whileUntil"></block>
+             </category>
+             <category name="Math">
+             <block type="math_number"></block>
+             <block type="math_arithmetic"></block>
+             <block type="math_single"></block>
+             <block type="php_rand"></block>
+             <block type="php_date">
+             </block>
+             </category>
+             <category name="Lists">
+             <block type="lists_create_empty"></block>
+             <block type="lists_create_with"></block>
+             <block type="lists_repeat">
+             <value name="NUM">
+             <block type="math_number">
+             <field name="NUM">5</field>
+             </block>
+             </value>
+             </block>
+             <block type="lists_length"></block>
+             <block type="lists_isEmpty"></block>
+             <block type="lists_indexOf"></block>
+             <block type="lists_getIndex"></block>
+             <block type="lists_setIndex"></block>
+             </category>
+             <category name="Variables" custom="VARIABLE"></category>
+             <category name="Text">
+             <block type="text"></block>
+             <block type="text_length"></block>
+             <block type="text_print"></block>
+             </category>
 
-      <category name="Sw DB" colour="#5b5ba5">
-      <block type="sw_init"></block>
-      <block type="sw_create_table">
-      <field name="ifnotexists">TRUE</field>
-      <field name="table">table_name</field>
-      </block>
-      <block type="sw_dbopen">
-      <field name="dbfilename">db_filename</field>
-      </block>
-      <block type="sw_field">
-      <field name="fname">id</field>
-      <field name="fields">INTEGER</field>
-      <field name="primarykey">TRUE</field>
-      <field name="autoincrement">TRUE</field>
-      <field name="notnull">TRUE</field>
-      </block>
-      <block type="sw_insert">
-      <field name="table">table_name</field>
-      <field name="db" id="~t62Y3_YY5|vs)R,q22E" variabletype="">db</field>
-      </block>
-      </category>
+             <category name="Sw DB" colour="#5b5ba5">
+             <block type="sw_init"></block>
+             <block type="sw_create_table">
+             <field name="ifnotexists">TRUE</field>
+             <field name="table">table_name</field>
+             </block>
+             <block type="sw_dbopen">
+             <field name="dbfilename">db_filename</field>
+             </block>
+             <block type="sw_field">
+             <field name="fname">id</field>
+             <field name="fields">INTEGER</field>
+             <field name="primarykey">TRUE</field>
+             <field name="autoincrement">TRUE</field>
+             <field name="notnull">TRUE</field>
+             </block>
+             <block type="sw_insert">
+             <field name="table">table_name</field>
+             <field name="db" id="~t62Y3_YY5|vs)R,q22E" variabletype="">db</field>
+             </block>
+             </category>
 
-      <category name="Sw Vars" colour="#A65C81" custom="VARIABLE">
-      </category>
+             <category name="Sw Vars" colour="#A65C81" custom="VARIABLE">
+             </category>
 
-      <category name="Sw Table" colour="#a55b5b">
-      <block type="sw_showtable">
-      <field name="table">table_name</field>
-      <field name="db" id="HPzA33AeX+H)?T^TF;_5" variabletype="">db</field>
-      <field name="deledit">TRUE</field>
-      </block>
-      <block type="sw_tbl">
-      <field name="table">table_name</field>
-      <field name="db" id="HPzA33AeX+H)?T^TF;_5" variabletype="">db</field>
-      </block>
-      <block type="sw_table">
-      <field name="format">table</field>
-      </block>
-      <block type="sw_jqaddform">
-      <field name="table">table</field>
-      <field name="db" id="HPzA33AeX+H)?T^TF;_5" variabletype="">db</field>
-      </block>
-      <block type="sw_postgetfile">
-      <field name="PGF">POST</field>
-      </block>
-      <block type="sw_postgetfile_idx">
-      <field name="PGF">POST</field>
-      <field name="index">
-        <block type="text" id="O07_Y9)^AdqwK[KDX7">
-        <field name="TEXT">name</field>
-        </block>
-      </field>
-      </block>
-      <block type="sw_isset"></block>
-      <block type="sw_isarray"></block>
-      </category>
+             <category name="Sw Table" colour="#a55b5b">
+             <block type="sw_showtable">
+             <field name="table">table_name</field>
+             <field name="db" id="HPzA33AeX+H)?T^TF;_5" variabletype="">db</field>
+             <field name="deledit">TRUE</field>
+             </block>
+             <block type="sw_tbl">
+             <field name="table">table_name</field>
+             <field name="db" id="HPzA33AeX+H)?T^TF;_5" variabletype="">db</field>
+             </block>
+             <block type="sw_table">
+             <field name="format">table</field>
+             </block>
+             <block type="sw_jqaddform">
+             <field name="table">table</field>
+             <field name="db" id="HPzA33AeX+H)?T^TF;_5" variabletype="">db</field>
+             </block>
+             <block type="sw_postgetfile">
+             <field name="PGF">POST</field>
+             </block>
+             <block type="sw_postgetfile_idx">
+             <field name="PGF">POST</field>
+             <field name="index">
+             <block type="text" id="O07_Y9)^AdqwK[KDX7">
+             <field name="TEXT">name</field>
+             </block>
+             </field>
+             </block>
+             <block type="sw_isset"></block>
+             <block type="sw_isarray"></block>
+             </category>
 
-      <category name="Sw HTML" colour="#80a55b">
-      <block type="sw_title">
-      <field name="text">text</field>
-      </block>
-      <block type="sw_heading">
-      <field name="level">1</field>
-      <field name="text">text</field>
-      </block>
-      <block type="sw_echo"></block>
-      <block type="sw_br">
-      <field name="level">1</field>
-      </block>
-      <block type="sw_divspan">
-      <field name="divspan">div</field>
-      </block>
-      <block type="sw_tabletr">
-      <field name="tabletr">table</field>
-      </block>
-      <block type="sw_tdth"></block>
-      </category>
-      <category name="Sw Form" colour="#5ba593">
-      <block type="sw_form_start"></block>
-      <block type="sw_form_input">
-      <field name="name">name</field>
-      <field name="type">text</field>
-      </block>
-      <block type="sw_form_submit"></block>
-      <block type="sw_form_end"></block>
-      </category>
-      <category name="PHP Assoc" colour="#5b5ba5">
-      <block type="php_assoc_pair"></block>
-      <block type="php_assoc_pair_string">
-      <field name="name">name</field>
-      </block>
-      <block type="php_assoc_addpair"></block>
-      <block type="lists_create_with"></block>
-      <block type="php_print_recursive"></block>
-      <block type="php_print_recursive_array"></block>
-      <block type="php_foreach_var"></block>
-      <block type="php_foreach_array"></block>
-      </category>
+             <category name="Sw HTML" colour="#80a55b">
+             <block type="sw_title">
+             <field name="text">text</field>
+             </block>
+             <block type="sw_heading">
+             <field name="level">1</field>
+             <field name="text">text</field>
+             </block>
+             <block type="sw_echo"></block>
+             <block type="sw_br">
+             <field name="level">1</field>
+             </block>
+             <block type="sw_divspan">
+             <field name="divspan">div</field>
+             </block>
+             <block type="sw_tabletr">
+             <field name="tabletr">table</field>
+             </block>
+             <block type="sw_tdth"></block>
+             </category>
+             <category name="Sw Form" colour="#5ba593">
+             <block type="sw_form_start"></block>
+             <block type="sw_form_input">
+             <field name="name">name</field>
+             <field name="type">text</field>
+             </block>
+             <block type="sw_form_submit"></block>
+             <block type="sw_form_end"></block>
+             </category>
+             <category name="PHP Assoc" colour="#5b5ba5">
+             <block type="php_assoc_pair"></block>
+             <block type="php_assoc_pair_string">
+             <field name="name">name</field>
+             </block>
+             <block type="php_assoc_addpair"></block>
+             <block type="lists_create_with"></block>
+             <block type="php_print_recursive"></block>
+             <block type="php_print_recursive_array"></block>
+             <block type="php_foreach_var"></block>
+             <block type="php_foreach_array"></block>
+             </category>
 
 
-      </xml>
+             </xml>
 
-      <xml id="startBlocks" style="display: none">
-      </xml> <!-- end of workspace -->
+             <xml id="startBlocks" style="display: none">
+             </xml> <!-- end of workspace -->
 
-      <script>
-      var workspace = Blockly.inject('blocklyDiv',
-                                     {media: 'blockly/media/',
-                                      toolbox: document.getElementById('toolbox'),
-                                      zoom: {controls: true, 
-                                             wheel: true,
-                                             startScale:1.0,
-                                             maxScale:3,
-                                             minScale:0.3,
-                                             scaleSpeed:1.2}
-                                     });
-Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
-                           workspace);
+             <script>
 
-workspace.addChangeListener(changeEvent);
+             function changeEvent(primaryEvent) {
+                 if (primaryEvent.type == Blockly.Events.UI) {
+                     return;  // Don't mirror UI events.
+                 }
 
-function changeEvent(primaryEvent) {
-    if (primaryEvent.type == Blockly.Events.UI) {
-        return;  // Don't mirror UI events.
-    }
-
-    var current_blkxml = blktext();
-    if (loaded_blkxml != current_blkxml) modified = 1; else modified = 0;
-    var editandrun = $('#editandrun').prop('checked');
-    if (editandrun) {
-        block2src();
-        srcsaveandrun();
-    }
-}
+                 var current_blkxml = blktext();
+                 if (loaded_blkxml != current_blkxml) modified = 1; else modified = 0;
+                 var editandrun = $('#editandrun').prop('checked');
+                 if (editandrun) {
+                     block2src();
+                     srcsaveandrun();
+                 }
+             }
 
 
 function block2src() {
@@ -298,8 +285,8 @@ function runCode() {
 }
 
 /*function wsclear(){
-    workspace.clear();
-    }*/
+  workspace.clear();
+  }*/
 
 function blktext(){
 	var xml = Blockly.Xml.workspaceToDom(workspace);
@@ -340,9 +327,9 @@ function blkxmlloadfile(fn = null, dir = null){
     // save current block code
     if (dir ==null) dir = "output";
     $.get(dir+"/"+fn).done(function(txt){
-      $("#blktxt").val(txt);  loaded_blkxml = txt;
-      blkimport();
-      modified = 0;
+        $("#blktxt").val(txt);  loaded_blkxml = txt;
+            blkimport();
+            modified = 0;
     });
 }
 function blkxmlsavefile(fn = null){
@@ -404,8 +391,34 @@ function srcsaveandrun(){
     
 }
 
+var myLayout, workspace;
+var onresizeSoon = function(){
+    setTimeout("onresize()", 300);
+}
+var onresize = function(e) {
+    Blockly.svgResize(workspace);
+};
+
 $(document).ready(function(){
-    block2src();
+    //Layout Border
+    myLayout = $('body').layout({ 
+            east__size: 380,
+            applyDefaultStyles: true });
+    
+    workspace = Blockly.inject('blocklyDiv',
+                               {media: 'blockly/media/',
+                                toolbox: document.getElementById('toolbox'),
+                                zoom: {controls: true, 
+                                       wheel: true,
+                                       startScale:1.0,
+                                       maxScale:3,
+                                       minScale:0.3,
+                                       scaleSpeed:1.2}
+                               });
+    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
+                               workspace);
+    
+    workspace.addChangeListener(changeEvent);
 
     $('[name=bswload_output]').change(function(){
         var val = $('[name=bswload_output]').val();
@@ -416,7 +429,13 @@ $(document).ready(function(){
         blkxmlloadfile(val,"samples");
     });
 
+    block2src();
+    onresizeSoon();
+
 });
+
+window.addEventListener('resize', onresizeSoon, false);
+
 </script>
 
 </body>
