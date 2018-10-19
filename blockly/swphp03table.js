@@ -33,3 +33,29 @@ Blockly.PHP['sw_jqaddform'] = function(block) {
     //  var code = 'modtable("'+text_table+'", '+variable_db+');\n';
     return code;
 };
+
+Blockly.PHP['sw_postgetfile'] = function(block) {
+  var dropdown_pgf = block.getFieldValue('PGF');
+  if (!dropdown_pgf.startsWith('$_')){
+      dropdown_pgf = "$_"+dropdown_pgf;
+  }
+  var code = dropdown_pgf;
+  return [code, Blockly.PHP.ATOMIC];
+};
+
+Blockly.PHP['sw_postgetfile_idx'] = function(block) {
+  var dropdown_pgf = block.getFieldValue('PGF');
+  if (!dropdown_pgf.startsWith('$_')){
+      dropdown_pgf = "$_"+dropdown_pgf;
+  }
+  var value_index = Blockly.PHP.valueToCode(block, 'index', Blockly.PHP.ORDER_ATOMIC);
+  var code = dropdown_pgf+"["+value_index+"]";
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.PHP.ATOMIC];
+};
+
+Blockly.PHP['sw_dropdowntext'] = function(block) {
+  var dropdown_txt = block.getFieldValue('TXT');
+  var code = '"'+dropdown_txt+'"';
+  return [code, Blockly.PHP.ATOMIC];
+};

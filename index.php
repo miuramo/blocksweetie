@@ -179,12 +179,30 @@ echo '</text'.'area>';
              </block>
              <block type="sw_postgetfile_idx">
              <field name="PGF">POST</field>
-             <field name="index">
-             <block type="text" id="O07_Y9)^AdqwK[KDX7">
+             <value name="index">
+             <block type="text">
              <field name="TEXT">name</field>
              </block>
-             </field>
+             </value>
              </block>
+
+             <block type="sw_postgetfile_idx">
+             <field name="PGF">SERVER</field>
+             <value name="index">
+             <block type="sw_dropdowntext">
+             <field name="TXT">REMOTE_ADDR</field>
+             </block>
+             </value>
+             </block>
+
+             <block type="sw_dropdowntext">
+             <field name="TXT">HTTP_HOST</field>
+             </block>
+
+             <block type="sw_dropdowntext">
+             <field name="TXT">SERVER_NAME</field>
+             </block>
+
              <block type="sw_isset"></block>
              <block type="sw_isarray"></block>
              </category>

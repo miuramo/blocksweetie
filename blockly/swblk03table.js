@@ -68,3 +68,43 @@ Blockly.Blocks['sw_jqaddform'] = {
   }
 };
 
+
+Blockly.Blocks['sw_postgetfile'] = {
+    init: function() {
+	this.appendDummyInput()
+            .appendField(new Blockly.FieldDropdown([["POST","$_POST"], ["GET","$_GET"], ["FILE","$_FILE"], ["SERVER","$_SERVER"]]), "PGF");
+	this.setInputsInline(true);
+	this.setOutput(true, null);
+	this.setColour(330);
+	this.setTooltip("");
+	this.setHelpUrl("");
+    }
+};
+
+Blockly.Blocks['sw_postgetfile_idx'] = {
+    init: function() {
+	this.appendDummyInput()
+            .appendField(new Blockly.FieldDropdown([["POST","$_POST"], ["GET","$_GET"], ["FILE","$_FILE"], ["SERVER","$_SERVER"]]), "PGF");
+	this.appendValueInput("index")
+            .setCheck(null);
+	this.setInputsInline(true);
+	this.setOutput(true, null);
+	this.setColour(330);
+	this.setTooltip("");
+	this.setHelpUrl("");
+    }
+};
+
+Blockly.Blocks['sw_dropdowntext'] = {
+    init: function() {
+	this.appendDummyInput()
+            .appendField("‘‘")
+            .appendField(new Blockly.FieldDropdown([["REMOTE_ADDR","REMOTE_ADDR"], ["HTTP_HOST","HTTP_HOST"], ["SERVER_NAME","SERVER_NAME"]]), "TXT")
+        .appendField("’’");
+	this.setOutput(true, null);
+	this.setColour(150);
+	this.setTooltip("");
+	this.setHelpUrl("");
+    }
+};
+

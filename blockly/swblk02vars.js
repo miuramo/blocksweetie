@@ -25,7 +25,7 @@ Blockly.Blocks['sw_isarray'] = {
     }
 };
 
-Blockly.Blocks['sw_postgetfile'] = {
+/*Blockly.Blocks['sw_postgetfile'] = {
     init: function() {
 	this.appendDummyInput()
             .appendField(new Blockly.FieldDropdown([["POST","$_POST"], ["GET","$_GET"], ["FILE","$_FILE"]]), "PGF");
@@ -49,5 +49,5 @@ Blockly.Blocks['sw_postgetfile_idx'] = {
 	this.setTooltip("");
 	this.setHelpUrl("");
     }
-};
+};*/
 
