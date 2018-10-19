@@ -18,7 +18,7 @@ Blockly.PHP['php_assoc_pair_string'] = function(block) {
     if (value_name.match(/=>/)){
 	var code = ' ["'+text_keyname+'"=>'+jsary2php(ary)+']';
     } else {
-	var code = ' ["'+text_keyname+'"=>"'+value_name+'"]';
+	var code = ' ["'+text_keyname+'"=>'+value_name+']';
     }
     return [code, Blockly.PHP.ATOMIC];
 };
