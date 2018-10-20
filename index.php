@@ -266,11 +266,13 @@ echo '</text'.'area>';
                  if (loaded_blkxml != current_blkxml) modified = 1; else modified = 0;
                  var editandrun = $('#editandrun').prop('checked');
                  if (editandrun) {
-                     block2src();
-                     srcsaveandrun();
+                     var newSrc = block2src();
+                     if (previousSrc != newSrc) srcsaveandrun();
+                     previousSrc = newSrc;
                  }
              }
 
+var previousSrc = ""; 
 
 function block2src() {
     // Generate PHP code and display it.
@@ -280,6 +282,7 @@ function block2src() {
     code = code.replace(/\$[\w]+;/g,""); // remove variable definitions on top
     code = code.trim();
     $("#src").val(code);
+    return code;
 }
 
 function wsclear(){
@@ -398,10 +401,8 @@ function srcsaveandrun(){
      "src": code},
      success: function(a){
          if (win == null) {
-             //             console.log("new op");
              win = window.open("output/out.php","out","left: 100, top:100, width=500, height=500");
          } else {
-             //             console.log("reload");
              win.location.href = "output/out.php";
          }
      }
